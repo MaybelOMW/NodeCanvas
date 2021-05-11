@@ -1,67 +1,66 @@
+// Libraries
 const chalk = require('chalk');
 const constants = require('./constants');
-const args = process.argv;
-const command_size = args.length;
+const checkCommand = require('./checkCommand');
+const usage = require('./usage');
 
-// Usage for the help guide
-const usage = ()=> {
-    const usageText = chalk.cyan(constants.USAGE_TEXT);
-    console.log(usageText);
-};
+// Readline and Data Storing
+const readline = require('readline');
+const low = require('lowdb');
+const FileSync = require('lowdb/adapters/FileSync');
+const adapter = new FileSync('db.json');
+const db = low(adapter);
 
-// Log errors to the console in red color
-function errorLog(error){
-    const eLog = chalk.red(error);
-    console.log(eLog);
-};
+// Instantiation 
+let args = [];
+let isValidCommand = false;
+let isCanvasCreated = false;
+var instruction = chalk.blue('Input your canvas CLI: ');
 
-function checkCommand(key){
-    let key_obj = constants.COMMANDS[key];
+db.defaults({ canvas: "", drawing: []}).write();
 
-    if (key_obj === undefined){
-        errorLog('invalid command passed');
-        usage();
-        return;
-    }
+const rl = readline.createInterface({
+    input: process.stdin, 
+    output: process.stdout,
+    terminal: false
+});
 
-    let expected_count = parseInt(key_obj["count"]);
-    let expected_arg = key_obj["arg"];
+// Listen to user input
+function recursiveAsyncReadLine(question){
+    rl.question(question, answer => {
+        if(answer == 'Q')
+            return rl.close();
 
-    if (command_size !== (3 + expected_count)){
-        let error = 'ERR: The '+ expected_arg +' command expected '+ expected_count +' arguments. Type "help" for more information.';
-        errorLog(error);
-    }
-    return;
+        args = answer.trim().split(" ");
+        isValidCommand = checkCommand(args, isCanvasCreated);
+        
+        if (isValidCommand){
+            switch(args[0]){
+                case 'help':
+                    usage();
+                    break;
+                
+                case 'C':
+                    isCanvasCreated = true;
+                    break;
+                
+                case 'L':
+                    break;
+                
+                case 'R':
+                    break;
+                
+                case 'B':
+                    break;
+                
+                default:
+            }
+            instruction = chalk.green('Input your drawing CLI: ');
+        }
+
+        recursiveAsyncReadLine(instruction);
+    });
 }
 
-if (command_size < 3){
-    usage();
-}
-else {
-    checkCommand(args[2]);
-    
-    switch(args[2]){
-        case 'help':
-            usage();
-            break;
-        
-        case 'C':
-            break;
-        
-        case 'L':
-            break;
-        
-        case 'R':
-            break;
-        
-        case 'B':
-            break;
-        
-        case 'Q':
-            break;
-        
-        default:
-    }
-}
-
-
+// Begin the ReadLine
+recursiveAsyncReadLine(instruction);
