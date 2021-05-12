@@ -20,7 +20,7 @@ function canvas(args){
                 else canvas_arr[h][w] = " ";
             }
         }
-        console.log(canvas_arr[h].join(''));
+        // console.log(canvas_arr[h].join(''));
     }
     return canvas_arr;
 }
@@ -71,11 +71,41 @@ function line(args, canvas_arr){
         errorLog(error);
     }
 
-    canvas_arr.map(row => console.log(row.join('')));
+    // canvas_arr.map(row => console.log(row.join('')));
+    return canvas_arr;
+}
+
+// Drawing Line
+function rectangle(args, canvas_arr){
+    let x1 = parseInt(args[1]);
+    let y1 = parseInt(args[2]);
+    let x2 = parseInt(args[3]);
+    let y2 = parseInt(args[4]);
+    let gradient;
+
+    // Calculate gradient for 2 points: gradient = |(y2-y1)/(x2-x1)|
+    gradient = (y2-y1)/(x2-x1);
+    gradient *= -1;
+
+    if (gradient){
+        // Draw horizontal border
+        canvas_arr = line(['', x1, y1, x2, y1], canvas_arr);
+        canvas_arr = line(['', x2, y2, x1, y2], canvas_arr);
+
+        // Draw vertical border
+        canvas_arr = line(['', x1, y1, x1, y2], canvas_arr);
+        canvas_arr = line(['', x2, y2, x2, y1], canvas_arr);
+    }
+    else {
+        let error = 'ERR: Only upper left corner (x1, y1) and lower right corner (x2, y2) points are accepted. Type "help" for more information.';
+        errorLog(error);
+    }
+    // canvas_arr.map(row => console.log(row.join('')));
     return canvas_arr;
 }
 
 module.exports = {
     canvas,
-    line
+    line, 
+    rectangle
 };
