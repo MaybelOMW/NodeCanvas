@@ -1,8 +1,9 @@
-// Libraries
+// Libraries or Import
 const chalk = require('chalk');
 const constants = require('./constants');
 const checkCommand = require('./checkCommand');
 const usage = require('./usage');
+const draw = require('./draw');
 
 // Readline and Data Storing
 const readline = require('readline');
@@ -41,6 +42,7 @@ function recursiveAsyncReadLine(question){
                     break;
                 
                 case 'C':
+                    draw.canvas(args);
                     isCanvasCreated = true;
                     break;
                 
