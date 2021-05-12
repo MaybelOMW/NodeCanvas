@@ -16,7 +16,7 @@ const db = low(adapter);
 let args = [];
 let isValidCommand = false;
 let isCanvasCreated = false;
-var instruction = chalk.blue('Input your canvas CLI: ');
+var instruction = chalk.green('Starting the program ... \nInput your canvas CLI: ');
 let canvas_arr;
 
 db.defaults({ canvas: "", drawing: []}).write();
@@ -30,8 +30,11 @@ const rl = readline.createInterface({
 // Listen to user input
 function recursiveAsyncReadLine(question){
     rl.question(question, answer => {
-        if(answer == 'Q')
+        if(answer == 'Q'){
+            instruction = chalk.green('Closing the program ...');
+            console.log(instruction);
             return rl.close();
+        }
 
         args = answer.trim().split(" ");
         isValidCommand = checkCommand(args, isCanvasCreated);
@@ -52,6 +55,7 @@ function recursiveAsyncReadLine(question){
                     break;
                 
                 case 'R':
+                    canvas_arr = draw.rectangle(args, canvas_arr);
                     break;
                 
                 case 'B':
@@ -59,7 +63,8 @@ function recursiveAsyncReadLine(question){
                 
                 default:
             }
-            instruction = chalk.green('Input your drawing CLI: ');
+            canvas_arr.map(row => console.log(row.join('')));
+            instruction = chalk.green('Result: Successful.\nInput your drawing CLI: ');
         }
 
         recursiveAsyncReadLine(instruction);
