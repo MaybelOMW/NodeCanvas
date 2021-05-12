@@ -17,6 +17,7 @@ let args = [];
 let isValidCommand = false;
 let isCanvasCreated = false;
 var instruction = chalk.blue('Input your canvas CLI: ');
+let canvas_arr;
 
 db.defaults({ canvas: "", drawing: []}).write();
 
@@ -42,11 +43,12 @@ function recursiveAsyncReadLine(question){
                     break;
                 
                 case 'C':
-                    draw.canvas(args);
+                    canvas_arr = draw.canvas(args);
                     isCanvasCreated = true;
                     break;
                 
                 case 'L':
+                    canvas_arr = draw.line(args, canvas_arr);
                     break;
                 
                 case 'R':
