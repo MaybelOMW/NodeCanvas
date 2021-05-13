@@ -13,7 +13,7 @@ function commandValidity(args_obj){
 // Check Canvas Availability Before Drawing
 function canvasAvailability(command_key, isCanvasCreated){
     if (!isCanvasCreated){
-        if (command_key !== "C"){
+        if (command_key !== "C" && command_key !== "help"){
             let error = 'ERR: Canvas has not been created. Type "help" for more information.';
             errorLog(error);
             return false;
