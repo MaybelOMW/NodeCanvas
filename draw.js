@@ -104,8 +104,46 @@ function rectangle(args, canvas_arr){
     return canvas_arr;
 }
 
+// Recursion
+function changeSameColor(canvas_arr, old_color, new_color, x, y, width, height){
+    // Return at boundary, different color, already changed color
+    if(x <= 0 || x >= width || y <= 0 || y >= height || canvas_arr[y][x] !== old_color || canvas_arr[y][x] === new_color)
+        return;
+
+    canvas_arr[y][x] = new_color;
+    
+    // top
+    changeSameColor(canvas_arr, old_color, new_color, x, y - 1);
+    
+    // right
+    changeSameColor(canvas_arr, old_color, new_color, x + 1, y);
+
+    // down
+    changeSameColor(canvas_arr, old_color, new_color, x, y + 1);
+
+    // left
+    changeSameColor(canvas_arr, old_color, new_color, x - 1, y);
+    
+    return canvas_arr;
+}
+
+// Bucket Fill
+function bucketFill(args, canvas_arr){
+    let x = parseInt(args[1]);
+    let y = parseInt(args[2]);
+    let new_color = args[3];
+    let old_color = canvas_arr[y][x];
+    let width = canvas_arr[0].length - 1;
+    let height = canvas_arr.length - 1;
+
+    canvas_arr = changeSameColor(canvas_arr, old_color, new_color, x, y, width, height);
+    
+    return canvas_arr;
+}
+
 module.exports = {
     canvas,
     line, 
-    rectangle
+    rectangle, 
+    bucketFill
 };

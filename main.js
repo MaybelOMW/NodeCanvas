@@ -17,7 +17,7 @@ let args = [];
 let isValidCommand = false;
 let isCanvasCreated = false;
 var instruction = chalk.green('Starting the program ... \nInput your canvas CLI: ');
-let canvas_arr;
+let canvas_arr = [];
 
 db.defaults({ canvas: "", drawing: []}).write();
 
@@ -59,14 +59,21 @@ function recursiveAsyncReadLine(question){
                     break;
                 
                 case 'B':
+                    canvas_arr = draw.bucketFill(args, canvas_arr);
                     break;
                 
                 default:
             }
             canvas_arr.map(row => console.log(row.join('')));
-            instruction = chalk.green('Result: Successful.\nInput your drawing CLI: ');
         }
 
+        if(isCanvasCreated){
+            instruction = chalk.green('Input your drawing CLI: ');
+        }
+        else{
+            instruction = chalk.green('Input your canvas CLI: ');
+        }
+        
         recursiveAsyncReadLine(instruction);
     });
 }
