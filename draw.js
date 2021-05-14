@@ -75,7 +75,7 @@ function line(args, canvas_arr){
     return canvas_arr;
 }
 
-// Drawing Line
+// Drawing Rectangle
 function rectangle(args, canvas_arr){
     let x1 = parseInt(args[1]);
     let y1 = parseInt(args[2]);
@@ -104,7 +104,7 @@ function rectangle(args, canvas_arr){
     return canvas_arr;
 }
 
-// Recursion
+// Recursion to change the same color neighbour to new color
 function changeSameColor(canvas_arr, old_color, new_color, x, y, width, height){
     // Return at boundary, different color, already changed color
     if(x <= 0 || x >= width || y <= 0 || y >= height || canvas_arr[y][x] !== old_color || canvas_arr[y][x] === new_color)
@@ -113,16 +113,16 @@ function changeSameColor(canvas_arr, old_color, new_color, x, y, width, height){
     canvas_arr[y][x] = new_color;
     
     // top
-    changeSameColor(canvas_arr, old_color, new_color, x, y - 1);
+    changeSameColor(canvas_arr, old_color, new_color, x, y - 1, width, height);
     
     // right
-    changeSameColor(canvas_arr, old_color, new_color, x + 1, y);
+    changeSameColor(canvas_arr, old_color, new_color, x + 1, y, width, height);
 
     // down
-    changeSameColor(canvas_arr, old_color, new_color, x, y + 1);
+    changeSameColor(canvas_arr, old_color, new_color, x, y + 1, width, height);
 
     // left
-    changeSameColor(canvas_arr, old_color, new_color, x - 1, y);
+    changeSameColor(canvas_arr, old_color, new_color, x - 1, y, width, height);
     
     return canvas_arr;
 }
