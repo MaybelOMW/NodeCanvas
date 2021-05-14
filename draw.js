@@ -1,4 +1,6 @@
 const errorLog = require('./errorLog');
+const constants = require('./constants')
+const argumentCheck = require('./argumentCheck');
 
 // Drawing Canvas
 function canvas(args){
@@ -26,13 +28,24 @@ function canvas(args){
 }
 
 // Drawing Line
-function line(args, canvas_arr){
+function line(args, canvas_arr, rectangle_line=false){
     let x1 = parseInt(args[1]);
     let y1 = parseInt(args[2]);
     let x2 = parseInt(args[3]);
     let y2 = parseInt(args[4]);
     let start;
     let end;
+
+    if (rectangle_line){
+        let isValidArgument = new Array(2).fill(false);
+
+        isValidArgument[0] = argumentCheck.boundaryCheck(canvas_arr, x1, y1);
+        isValidArgument[1] = argumentCheck.boundaryCheck(canvas_arr, x2, y2);
+
+        if (!(isValidArgument.every(item => item === true))){
+            return canvas_arr;
+        }
+    }
 
     // Horizontal Line: y1 = y2
     if (y1 === y2){
@@ -67,8 +80,7 @@ function line(args, canvas_arr){
     }
 
     else {
-        let error = 'ERR: Only horizontal and vertical lines are accepted. Type "help" for more information.';
-        errorLog(error);
+        errorLog(constants.INVALID_LINE);
     }
 
     // canvas_arr.map(row => console.log(row.join('')));
@@ -82,6 +94,14 @@ function rectangle(args, canvas_arr){
     let x2 = parseInt(args[3]);
     let y2 = parseInt(args[4]);
     let gradient;
+    let isValidArgument = new Array(2).fill(false);
+
+    isValidArgument[0] = argumentCheck.boundaryCheck(canvas_arr, x1, y1);
+    isValidArgument[1] = argumentCheck.boundaryCheck(canvas_arr, x2, y2);
+
+    if (!(isValidArgument.every(item => item === true))){
+        return canvas_arr;
+    }
 
     // Calculate gradient for 2 points: gradient = |(y2-y1)/(x2-x1)|
     gradient = (y2-y1)/(x2-x1);
@@ -89,16 +109,15 @@ function rectangle(args, canvas_arr){
 
     if (gradient){
         // Draw horizontal border
-        canvas_arr = line(['', x1, y1, x2, y1], canvas_arr);
-        canvas_arr = line(['', x2, y2, x1, y2], canvas_arr);
+        canvas_arr = line(['', x1, y1, x2, y1], canvas_arr, true);
+        canvas_arr = line(['', x2, y2, x1, y2], canvas_arr, true);
 
         // Draw vertical border
-        canvas_arr = line(['', x1, y1, x1, y2], canvas_arr);
-        canvas_arr = line(['', x2, y2, x2, y1], canvas_arr);
+        canvas_arr = line(['', x1, y1, x1, y2], canvas_arr, true);
+        canvas_arr = line(['', x2, y2, x2, y1], canvas_arr, true);
     }
     else {
-        let error = 'ERR: Only upper left corner (x1, y1) and lower right corner (x2, y2) points are accepted. Type "help" for more information.';
-        errorLog(error);
+        errorLog(constants.INVALID_RECTANGLE);
     }
     // canvas_arr.map(row => console.log(row.join('')));
     return canvas_arr;
@@ -135,8 +154,12 @@ function bucketFill(args, canvas_arr){
     let old_color = canvas_arr[y][x];
     let width = canvas_arr[0].length - 1;
     let height = canvas_arr.length - 1;
+    
+    let isValidArgument = argumentCheck.boundaryCheck(canvas_arr, x, y);
 
-    canvas_arr = changeSameColor(canvas_arr, old_color, new_color, x, y, width, height);
+    if (isValidArgument){
+        canvas_arr = changeSameColor(canvas_arr, old_color, new_color, x, y, width, height);
+    }
     
     return canvas_arr;
 }
