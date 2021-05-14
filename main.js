@@ -1,7 +1,7 @@
 // Libraries or Import
 const chalk = require('chalk');
 const constants = require('./constants');
-const checkCommand = require('./checkCommand');
+const commandCheck = require('./commandCheck');
 const usage = require('./usage');
 const draw = require('./draw');
 
@@ -37,7 +37,7 @@ function recursiveAsyncReadLine(question){
         }
 
         args = answer.trim().split(" ");
-        isValidCommand = checkCommand(args, isCanvasCreated);
+        isValidCommand = commandCheck(args, isCanvasCreated);
         
         if (isValidCommand){
             switch(args[0]){

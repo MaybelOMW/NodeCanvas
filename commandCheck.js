@@ -35,7 +35,7 @@ function commandArgumentAvailability(args_obj, args_size){
     return true;
 }
 
-function checkCommand(args, isCanvasCreated){
+function commandCheck(args, isCanvasCreated){
     let args_obj = constants.COMMANDS[args[0]];
     let args_size = args.length;
 
@@ -46,4 +46,4 @@ function checkCommand(args, isCanvasCreated){
     return true;
 }
 
-module.exports = checkCommand;
+module.exports = commandCheck;
