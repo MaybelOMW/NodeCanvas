@@ -1,5 +1,5 @@
-const constants = require('./constants');
-const errorLog = require('./errorLog');
+const constants = require('../constants');
+const errorLog = require('../logs/errorLog');
 
 // Check Validity
 function commandValidity(args_obj){

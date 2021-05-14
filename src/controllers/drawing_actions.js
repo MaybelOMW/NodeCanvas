@@ -1,5 +1,5 @@
-const errorLog = require('./errorLog');
-const constants = require('./constants')
+const errorLog = require('../components/logs/errorLog');
+const constants = require('../components/constants')
 const argumentCheck = require('./argumentCheck');
 
 // Drawing Canvas
@@ -108,11 +108,11 @@ function rectangle(args, canvas_arr){
     gradient *= -1;
 
     if (gradient){
-        // Draw horizontal border
+        // Drawing horizontal border
         canvas_arr = line(['', x1, y1, x2, y1], canvas_arr, true);
         canvas_arr = line(['', x2, y2, x1, y2], canvas_arr, true);
 
-        // Draw vertical border
+        // Drawing vertical border
         canvas_arr = line(['', x1, y1, x1, y2], canvas_arr, true);
         canvas_arr = line(['', x2, y2, x2, y1], canvas_arr, true);
     }
