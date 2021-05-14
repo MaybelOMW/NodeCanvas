@@ -1,4 +1,4 @@
-const errorLog = require('./errorLog');
+const errorLog = require('../logs/errorLog');
 
 // Check if XY Within Boundary
 function boundaryCheck(canvas_arr, x, y){

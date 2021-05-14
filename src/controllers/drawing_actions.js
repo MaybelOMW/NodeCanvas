@@ -1,6 +1,6 @@
 const errorLog = require('../components/logs/errorLog');
-const constants = require('../components/constants')
-const argumentCheck = require('./argumentCheck');
+const constants = require('../components/constants');
+const argumentCheck = require('../components/validations/argumentCheck');
 
 // Drawing Canvas
 function canvas(args){
