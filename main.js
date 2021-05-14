@@ -5,12 +5,12 @@ const commandCheck = require('./commandCheck');
 const usage = require('./usage');
 const draw = require('./draw');
 
-// Readline and Data Storing
-const readline = require('readline');
-const low = require('lowdb');
-const FileSync = require('lowdb/adapters/FileSync');
-const adapter = new FileSync('db.json');
-const db = low(adapter);
+// // Readline and Data Storing
+// const readline = require('readline');
+// const low = require('lowdb');
+// const FileSync = require('lowdb/adapters/FileSync');
+// const adapter = new FileSync('db.json');
+// const db = low(adapter);
 
 // Instantiation 
 let args = [];
@@ -19,7 +19,7 @@ let isCanvasCreated = false;
 var instruction = chalk.green('Starting the program ... \nInput your canvas CLI: ');
 let canvas_arr = [];
 
-db.defaults({ canvas: "", drawing: []}).write();
+// db.defaults({ canvas: "", drawing: []}).write();
 
 const rl = readline.createInterface({
     input: process.stdin, 
