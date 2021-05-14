@@ -4,7 +4,7 @@ const errorLog = require('./errorLog');
 // Check Validity
 function commandValidity(args_obj){
     if (args_obj === undefined){
-        errorLog('ERR: Invalid command passed. Type "help" for more information.');
+        errorLog(constants.INVALID_COMMAND);
         return false;
     }
     return true;
@@ -14,8 +14,7 @@ function commandValidity(args_obj){
 function canvasAvailability(command_key, isCanvasCreated){
     if (!isCanvasCreated){
         if (command_key !== "C" && command_key !== "help"){
-            let error = 'ERR: Canvas has not been created. Type "help" for more information.';
-            errorLog(error);
+            errorLog(constants.CANVAS_UNAVAILABLE);
             return false;
         }
     }
@@ -28,8 +27,7 @@ function commandArgumentAvailability(args_obj, args_size){
     let expected_arg = args_obj["arg"];
 
     if ((args_size-1) !== expected_count){
-        let error = 'ERR: The '+ expected_arg +' command expected '+ expected_count +' arguments. Type "help" for more information.';
-        errorLog(error);
+        errorLog(`ERR: The ${expected_arg} command expected ${expected_count} arguments. Type "help" for more information.`);
         return false;
     }
     return true;
