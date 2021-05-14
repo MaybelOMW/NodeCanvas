@@ -127,7 +127,7 @@ function rectangle(args, canvas_arr){
 function changeSameColor(canvas_arr, old_color, new_color, x, y, width, height){
     // Return at boundary, different color, already changed color
     if(x <= 0 || x >= width || y <= 0 || y >= height || canvas_arr[y][x] !== old_color || canvas_arr[y][x] === new_color)
-        return;
+        return canvas_arr;
 
     canvas_arr[y][x] = new_color;
     
@@ -168,5 +168,6 @@ module.exports = {
     canvas,
     line, 
     rectangle, 
+    changeSameColor,
     bucketFill
 };

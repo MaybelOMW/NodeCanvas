@@ -1,12 +1,12 @@
 // Libraries or Import
 const chalk = require('chalk');
+const readline = require('readline');
 const constants = require('./src/components/constants');
 const commandCheck = require('./src/components/validations/commandCheck');
 const usage = require('./src/components/logs/usageLog');
 const drawing_actions = require('./src/controllers/drawing_actions');
 
-// // Readline and Data Storing
-// const readline = require('readline');
+// Data Storing
 // const low = require('lowdb');
 // const FileSync = require('lowdb/adapters/FileSync');
 // const adapter = new FileSync('db.json');
