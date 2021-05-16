@@ -1,11 +1,33 @@
 const { it, expect } = require('@jest/globals');
 let drawing_actions = require('./drawing_actions');
+const constants = require('../components/constants');
+const chalk = require('chalk');
+
+let canvas_arg = ["C", "3", "3"];
 let canvas_arr = [
     ["-", "-", "-", "-", "-"],
     ["|", " ", " ", " ", "|"],
     ["|", " ", " ", " ", "|"],
     ["|", " ", " ", " ", "|"],
     ["-", "-", "-", "-", "-"]];
+
+let horizontal_pt_arg = ["L", "1", "2", "3", "2"];
+let horizontal_line = [
+    ["-", "-", "-", "-", "-"],
+    ["|", " ", " ", " ", "|"],
+    ["|", "x", "x", "x", "|"],
+    ["|", " ", " ", " ", "|"],
+    ["-", "-", "-", "-", "-"]];
+
+let vertical_pt_arg = ["L", "2", "1", "2", "3"];
+let vertical_line = [
+    ["-", "-", "-", "-", "-"],
+    ["|", " ", "x", " ", "|"],
+    ["|", "x", "x", "x", "|"],
+    ["|", " ", "x", " ", "|"],
+    ["-", "-", "-", "-", "-"]];
+
+let diagonal_pt_arg = ["L", "1", "1", "3", "3"];
 
 describe('Check all drawing functions', () => {
     it('check if drawing_actions are exported as an object', () => {
@@ -14,22 +36,26 @@ describe('Check all drawing functions', () => {
 
     // Canvas
     describe('Check drawing_actions.canvas functions', () => {
-        it('check if drawing_actions.canvas is function', () => {
-            expect(typeof drawing_actions.canvas).toBe('function');
-        });
-        it('check if drawing_actions.canvas return object', () => {
-            expect(typeof drawing_actions.canvas(["C", "3", "3"])).toBe('object');
+        it('check if drawing_actions.canvas return the correct canvas object', () => {
+            expect(drawing_actions.canvas(canvas_arg)).toEqual(canvas_arr);
         });
     });
 
     // Line
     describe('Check drawing_actions.line functions', () => {
-        it('check if drawing_actions.line is function', () => {
-            expect(typeof drawing_actions.line).toBe('function');
-        });
         // horizontal line
-        it('check if drawing_actions.line return object', () => {
-            expect(typeof drawing_actions.line(["L", "1", "2", "3", "2"], canvas_arr)).toBe('object');
+        it('check if drawing_actions.line able to create horizontal line', () => {
+            expect(drawing_actions.line(horizontal_pt_arg, canvas_arr)).toEqual(horizontal_line);
+        });
+        // vertical line
+        it('check if drawing_actions.line able to create vertical line', () => {
+            expect(drawing_actions.line(vertical_pt_arg, canvas_arr)).toEqual(vertical_line);
+        });
+        // diagonal line
+        it('check if drawing_actions.line console.log error when given diagonal points', () => {
+            console.log = jest.fn();
+            drawing_actions.line(diagonal_pt_arg, canvas_arr);
+            expect(console.log).toHaveBeenCalledWith(chalk.red(constants.INVALID_LINE));
         });
     });
 
