@@ -4,7 +4,7 @@ const readline = require('readline');
 const constants = require('./src/components/constants');
 const commandCheck = require('./src/components/validations/commandCheck');
 const usage = require('./src/components/logs/usageLog');
-const drawing_actions = require('./src/controllers/drawing_actions');
+const draw = require('./src/controllers/draw');
 
 // Data Storing
 // const low = require('lowdb');
@@ -46,20 +46,20 @@ function recursiveAsyncReadLine(question){
                     break;
                 
                 case 'C':
-                    canvas_arr = drawing_actions.canvas(args);
+                    canvas_arr = draw.canvas(args);
                     isCanvasCreated = true;
                     break;
                 
                 case 'L':
-                    canvas_arr = drawing_actions.line(args, canvas_arr);
+                    canvas_arr = draw.line(args, canvas_arr);
                     break;
                 
                 case 'R':
-                    canvas_arr = drawing_actions.rectangle(args, canvas_arr);
+                    canvas_arr = draw.rectangle(args, canvas_arr);
                     break;
                 
                 case 'B':
-                    canvas_arr = drawing_actions.bucketFill(args, canvas_arr);
+                    canvas_arr = draw.bucketFill(args, canvas_arr);
                     break;
                 
                 default:

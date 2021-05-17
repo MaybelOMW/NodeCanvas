@@ -1,5 +1,5 @@
 const { it, expect } = require('@jest/globals');
-let drawing_actions = require('./drawing_actions');
+let draw = require('./draw');
 const constants = require('../components/constants');
 const chalk = require('chalk');
 
@@ -53,60 +53,60 @@ let bucket_fill_outcome2 = [
     ["-", "-", "-", "-", "-"]];
 
 describe('Check all drawing functions', () => {
-    it('check if drawing_actions are exported as an object', () => {
-        expect(typeof drawing_actions).toBe('object');
+    it('check if draw are exported as an object', () => {
+        expect(typeof draw).toBe('object');
     });
 
     // Canvas
-    describe('Check drawing_actions.canvas functions', () => {
-        it('check if drawing_actions.canvas return the correct canvas object', () => {
-            expect(drawing_actions.canvas(canvas_arg)).toEqual(canvas_arr);
+    describe('Check draw.canvas functions', () => {
+        it('check if draw.canvas return the correct canvas object', () => {
+            expect(draw.canvas(canvas_arg)).toEqual(canvas_arr);
         });
     });
 
     // Line
-    describe('Check drawing_actions.line functions', () => {
+    describe('Check draw.line functions', () => {
         // horizontal line
-        it('check if drawing_actions.line able to create horizontal line', () => {
-            expect(drawing_actions.line(line_horizontal_pt, canvas_arr)).toEqual(horizontal_line_outcome);
+        it('check if draw.line able to create horizontal line', () => {
+            expect(draw.line(line_horizontal_pt, canvas_arr)).toEqual(horizontal_line_outcome);
         });
         // vertical line
-        it('check if drawing_actions.line able to create vertical line', () => {
-            expect(drawing_actions.line(line_vertical_pt, canvas_arr)).toEqual(vertical_line_outcome);
+        it('check if draw.line able to create vertical line', () => {
+            expect(draw.line(line_vertical_pt, canvas_arr)).toEqual(vertical_line_outcome);
         });
         // diagonal line
-        it('check if drawing_actions.line console.log error when given diagonal points', () => {
+        it('check if draw.line console.log error when given diagonal points', () => {
             console.log = jest.fn();
-            drawing_actions.line(line_diagonal_pt, canvas_arr);
+            draw.line(line_diagonal_pt, canvas_arr);
             expect(console.log).toHaveBeenCalledWith(chalk.red(constants.INVALID_LINE));
         });
     });
 
     // Rectangle
-    describe('Check drawing_actions.rectangle functions', () => {
+    describe('Check draw.rectangle functions', () => {
         // Diagonal points
-        it('check if drawing_actions.rectangle able to create rectangle', () => {
-            expect(drawing_actions.rectangle(rectangle_diagonal_pt, canvas_arr)).toEqual(rectangle_outcome);
+        it('check if draw.rectangle able to create rectangle', () => {
+            expect(draw.rectangle(rectangle_diagonal_pt, canvas_arr)).toEqual(rectangle_outcome);
         });
         // Non-diagonal points
-        it('check if drawing_actions.line console.log error when given diagonal points', () => {
+        it('check if draw.line console.log error when given diagonal points', () => {
             console.log = jest.fn();
-            drawing_actions.rectangle(rectangle_horizontal_pt, canvas_arr);
+            draw.rectangle(rectangle_horizontal_pt, canvas_arr);
             expect(console.log).toHaveBeenCalledWith(chalk.red(constants.INVALID_RECTANGLE));
         });
     });
 
     // Change Same Color
-    describe('Check drawing_actions.changeSameColor functions', () => {
-        it('check if drawing_actions.changeSameColor change the same color points correctly', () => {
-            expect(drawing_actions.changeSameColor(canvas_arr, "x", "c", 1, 1, 3+2-1, 3+2-1)).toEqual(bucket_fill_outcome1);
+    describe('Check draw.changeSameColor functions', () => {
+        it('check if draw.changeSameColor change the same color points correctly', () => {
+            expect(draw.changeSameColor(canvas_arr, "x", "c", 1, 1, 3+2-1, 3+2-1)).toEqual(bucket_fill_outcome1);
         });
     });
 
     // Bucket Fill
-    describe('Check drawing_actions.bucketFill functions', () => {
-        it('check if drawing_actions.bucketFill fill the color correctly', () => {
-            expect(drawing_actions.bucketFill(bucket_fill_pt, canvas_arr)).toEqual(bucket_fill_outcome2);
+    describe('Check draw.bucketFill functions', () => {
+        it('check if draw.bucketFill fill the color correctly', () => {
+            expect(draw.bucketFill(bucket_fill_pt, canvas_arr)).toEqual(bucket_fill_outcome2);
         });
     });
 });
