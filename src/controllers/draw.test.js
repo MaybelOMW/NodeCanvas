@@ -58,14 +58,14 @@ describe('Check all drawing functions', () => {
     });
 
     // Canvas
-    describe('Check draw.canvas functions', () => {
+    describe('Check draw.canvas function', () => {
         it('check if draw.canvas return the correct canvas object', () => {
             expect(draw.canvas(canvas_arg)).toEqual(canvas_arr);
         });
     });
 
     // Line
-    describe('Check draw.line functions', () => {
+    describe('Check draw.line function', () => {
         // horizontal line
         it('check if draw.line able to create horizontal line', () => {
             expect(draw.line(line_horizontal_pt, canvas_arr)).toEqual(horizontal_line_outcome);
@@ -83,7 +83,7 @@ describe('Check all drawing functions', () => {
     });
 
     // Rectangle
-    describe('Check draw.rectangle functions', () => {
+    describe('Check draw.rectangle function', () => {
         // Diagonal points
         it('check if draw.rectangle able to create rectangle', () => {
             expect(draw.rectangle(rectangle_diagonal_pt, canvas_arr)).toEqual(rectangle_outcome);
@@ -97,14 +97,14 @@ describe('Check all drawing functions', () => {
     });
 
     // Change Same Color
-    describe('Check draw.changeSameColor functions', () => {
+    describe('Check draw.changeSameColor function', () => {
         it('check if draw.changeSameColor change the same color points correctly', () => {
             expect(draw.changeSameColor(canvas_arr, "x", "c", 1, 1, 3+2-1, 3+2-1)).toEqual(bucket_fill_outcome1);
         });
     });
 
     // Bucket Fill
-    describe('Check draw.bucketFill functions', () => {
+    describe('Check draw.bucketFill function', () => {
         it('check if draw.bucketFill fill the color correctly', () => {
             expect(draw.bucketFill(bucket_fill_pt, canvas_arr)).toEqual(bucket_fill_outcome2);
         });
