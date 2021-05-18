@@ -14,7 +14,7 @@ let canvas_arr = [
 
 describe('Check all argumentCheck functions', () => {
     describe('Check boundaryCheck function', () => {
-        it('check if boundaryCheck return false when XY exceed the canvas boundary', () => {
+        it('check if boundaryCheck return false and console.log error when XY exceed the canvas boundary', () => {
             console.log = jest.fn();
             expect(argumentCheck.boundaryCheck(canvas_arr, invalid_pt[0], invalid_pt[1])).toEqual(false);
             expect(console.log).toHaveBeenCalledWith(chalk.red(invalid_pt_err));

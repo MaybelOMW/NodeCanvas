@@ -37,7 +37,7 @@ function recursiveAsyncReadLine(question){
         }
 
         args = answer.trim().split(" ");
-        isValidCommand = commandCheck(args, isCanvasCreated);
+        isValidCommand = commandCheck.runAllCheck(args, isCanvasCreated);
         
         if (isValidCommand){
             switch(args[0]){
