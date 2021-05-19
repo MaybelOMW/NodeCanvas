@@ -1,10 +1,40 @@
 const COMMANDS = {
-    'help': {arg: "help", count: 0},
-    'C': {arg: "C <w> <h>", count: 2}, 
-    'L': {arg: "L <x1> <y1> <x2> <y2>", count: 4}, 
-    'R': {arg: "R <x1> <y1> <x2> <y2>", count: 4}, 
-    'B': {arg: "B <x> <y> <c>", count: 3}, 
-    'Q': {arg: "Q", count: 0}
+    'help': {
+        arg: "help", 
+        arg_type: "help",
+        count: 0, 
+        patt: "^\\w{4}$"
+    },
+    'C': {
+        arg: "C <w> <h>", 
+        arg_type: "C <int> <int>",
+        count: 2, 
+        patt: "^\\w(\\s(\\d+)){2}$"
+    }, 
+    'L': {
+        arg: "L <x1> <y1> <x2> <y2>", 
+        arg_type: "L <int> <int> <int> <int>",
+        count: 4, 
+        patt: "^\\w(\\s(\\d+)){4}$"
+    }, 
+    'R': {
+        arg: "R <x1> <y1> <x2> <y2>", 
+        arg_type: "R <int> <int> <int> <int>",
+        count: 4, 
+        patt: "^\\w(\\s(\\d+)){4}$"
+    }, 
+    'B': {
+        arg: "B <x> <y> <c>", 
+        arg_type: "B <int> <int> <chr>",
+        count: 3, 
+        patt: "^\\w(\\s(\\d+)){2}(\\s(.))$"
+    }, 
+    'Q': {
+        arg: "Q", 
+        arg_type: "Q",
+        count: 0, 
+        patt: "^\\w$"
+    }
 };
 
 const USAGE_TEXT = `
