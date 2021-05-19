@@ -46,7 +46,7 @@ NodeCanvas program should work as follows:
 
 Usage:
 ------
-$ node main.js <command>
+$ node main.js
     
 Commands can be:
 -----------------
