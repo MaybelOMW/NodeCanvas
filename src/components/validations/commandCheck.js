@@ -22,7 +22,7 @@ function canvasAvailability(command_key, isCanvasCreated){
 }
 
 // Check Argument Availability
-function commandArgumentAvailability(args_obj, args_size){
+function argumentAvailability(args_obj, args_size){
     let expected_count = parseInt(args_obj["count"]);
     let expected_arg = args_obj["arg"];
 
@@ -33,20 +33,34 @@ function commandArgumentAvailability(args_obj, args_size){
     return true;
 }
 
-function runAllCheck(args, isCanvasCreated){
+// Check Argument Type correctness
+function argumentTypeCorrectness(args_obj, command){
+    let patt = new RegExp(args_obj.patt, "g");
+    
+    if(patt.test(command)) {
+        return true;
+    }
+    else{
+        errorLog(`ERR: The ${args_obj["arg"]} command expected ${args_obj["arg_type"]}. Type "help" for more information.`)
+        return false;
+    }
+}
+
+function runAllCheck(args, isCanvasCreated, command){
     let args_obj = constants.COMMANDS[args[0]];
     let args_size = args.length;
 
     if (!commandValidity(args_obj)) return false;
     if (!canvasAvailability(args[0], isCanvasCreated)) return false;
-    if (!commandArgumentAvailability(args_obj, args_size)) return false;
-
+    if (!argumentAvailability(args_obj, args_size)) return false;
+    if (!argumentTypeCorrectness(args_obj, command)) return false;
     return true;
 }
 
 module.exports = {
     commandValidity,
     canvasAvailability,
-    commandArgumentAvailability,
+    argumentAvailability,
+    argumentTypeCorrectness,
     runAllCheck
 };
